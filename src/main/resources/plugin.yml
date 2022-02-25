@@ -7,3 +7,10 @@ commands:
   uuid:
     description: "Display UUID of the specified player"
     usage: /uuid <player>
+
+permissions:
+  uuid.*:
+    description: Grants the ability to use all commands from the Minecraft-Player-UUID plugin
+    children:
+      uuid.uuid:
+        description: Allows the use of the /uuid command

@@ -41,22 +41,24 @@ public class Commands implements CommandExecutor, TabCompleter {
     ) {
         boolean error = false;
 
-        if (!(sender instanceof Player) || !"uuid".equalsIgnoreCase(command.getName())) {
-            this.plugin.getServer().broadcastMessage(ChatColor.RED + "Invalid usage of /uuid command");
-            error = true;
-        } else if (args.length == 0) {
-            sender.sendMessage(ChatColor.RED + "One argument required");
-            error = true;
-        } else if (args.length > 1) {
-            sender.sendMessage(ChatColor.RED + "Only one argument required");
-            error = true;
-        } else {
-            MinecraftPlayer minecraftPlayer = MinecraftApi.getMinecraftPlayerByName(args[0]);
-
-            if (minecraftPlayer != null) {
-                sender.sendMessage("UUID of " + args[0] + " is : " + minecraftPlayer.getUUID());
+        if (sender.hasPermission("uuid.uuid")) {
+            if (!(sender instanceof Player) || !"uuid".equalsIgnoreCase(command.getName())) {
+                this.plugin.getServer().broadcastMessage(ChatColor.RED + "Invalid usage of /uuid command");
+                error = true;
+            } else if (args.length == 0) {
+                sender.sendMessage(ChatColor.RED + "One argument required");
+                error = true;
+            } else if (args.length > 1) {
+                sender.sendMessage(ChatColor.RED + "Only one argument required");
+                error = true;
             } else {
-                sender.sendMessage(ChatColor.RED + "Failed to fetch the UUID of player : " + args[0]);
+                MinecraftPlayer minecraftPlayer = MinecraftApi.getMinecraftPlayerByName(args[0]);
+
+                if (minecraftPlayer != null) {
+                    sender.sendMessage("UUID of " + args[0] + " is : " + minecraftPlayer.getUUID());
+                } else {
+                    sender.sendMessage(ChatColor.RED + "Failed to fetch the UUID of player : " + args[0]);
+                }
             }
         }
 
@@ -72,7 +74,7 @@ public class Commands implements CommandExecutor, TabCompleter {
     ) {
         List<String> list = new ArrayList<>();
 
-        if (args.length == 1) {
+        if (sender.hasPermission("uuid.uuid") && args.length == 1) {
             this.plugin.getServer().getOnlinePlayers().forEach(player -> list.add(player.getName()));
         }
 
