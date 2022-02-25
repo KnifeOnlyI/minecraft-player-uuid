@@ -1,0 +1,9 @@
+name: Minecraft-Player-UUID
+version: '${project.version}'
+main: fr.koi.minecraftplayeruuid.MinecraftPlayerUuid
+api-version: 1.18
+description: A simple plugin to allow minecraft server administrators to get player UUID
+commands:
+  uuid:
+    description: "Display UUID of the specified player"
+    usage: /uuid <player>
